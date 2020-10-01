@@ -74,7 +74,9 @@ public class Inventory : MonoBehaviour
         item.SetActive(true);
         BusyPlaces[index] = -1;
         IsFull = false;
-        Icons[index].GetComponent<SpriteRenderer>().sprite = null;
+        SpriteRenderer renderer = Icons[index].GetComponent<SpriteRenderer>();
+        renderer.color = Color.white;
+        renderer.sprite = null;
     }
 
     public void PickUpItem()

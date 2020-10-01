@@ -83,7 +83,10 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         if (photonView.IsMine == false)
+        {
+            transform.Find("Inventory").gameObject.SetActive(false);
             return;
+        }
 
         gameObject.MoveToVector(MoveVelocity,Time.fixedDeltaTime);
         Run();

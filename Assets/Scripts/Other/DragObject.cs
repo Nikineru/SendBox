@@ -2,8 +2,10 @@
 
 public class DragObject : MonoBehaviour
 {
+    public Color OutColor;
     public event System.Action<GameObject,Vector3,bool> MouseUp;
     private Vector3 StartPos;
+    private bool IsOut;
     private void Start()
     {
         StartPos = transform.localPosition;
@@ -18,13 +20,18 @@ public class DragObject : MonoBehaviour
     {
         var Position = GetMouseAsWorldPoint();
         transform.position = Position;
-        float y = Mathf.Clamp(transform.localPosition.y, StartPos.y, 3);
-        float x = Mathf.Clamp(transform.localPosition.x, -6.5f,6.5f);
+        float y = transform.localPosition.y;
+        float x = transform.localPosition.x;
         transform.localPosition = new Vector3(x,y,StartPos.z);
+        IsOut = transform.localPosition.x >= 6 || transform.localPosition.x <= -6 || transform.localPosition.y >= 2.6f;
+        SpriteRenderer renderer = GetComponent<SpriteRenderer>();
+        if (IsOut)
+            renderer.color = Color.Lerp(renderer.color,OutColor,Time.deltaTime*2f);
+        else
+            renderer.color = Color.Lerp(renderer.color, Color.white, Time.deltaTime*2f);
     }
     private void OnMouseUp()
     {
-        bool IsOut = transform.localPosition.x >= 6 || transform.localPosition.x <= -6 || transform.localPosition.y >= 2.6f;
         MouseUp.Invoke(gameObject,StartPos,IsOut);
     }
 }

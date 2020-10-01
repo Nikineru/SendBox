@@ -95,6 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f94bc415596afc44863c06626256b00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OutColor: {r: 0.31238875, g: 0.5410765, b: 0.735849, a: 1}
 --- !u!65 &1565542410106432522
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -203,6 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f94bc415596afc44863c06626256b00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OutColor: {r: 0.31238875, g: 0.5410765, b: 0.735849, a: 1}
 --- !u!65 &1565542410222420562
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -311,6 +313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f94bc415596afc44863c06626256b00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OutColor: {r: 0.31238875, g: 0.5410765, b: 0.735849, a: 1}
 --- !u!65 &1565542410374830321
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -519,6 +522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f94bc415596afc44863c06626256b00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OutColor: {r: 0.31238875, g: 0.5410765, b: 0.735849, a: 1}
 --- !u!65 &1565542410573573569
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -627,6 +631,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f94bc415596afc44863c06626256b00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OutColor: {r: 0.31238875, g: 0.5410765, b: 0.735849, a: 1}
 --- !u!65 &1565542410767881123
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -822,6 +827,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f94bc415596afc44863c06626256b00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OutColor: {r: 0.31238875, g: 0.5410765, b: 0.735849, a: 1}
 --- !u!65 &1565542411218493133
 BoxCollider:
   m_ObjectHideFlags: 0
