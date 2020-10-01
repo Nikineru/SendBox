@@ -1,7 +1,8 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using UnityEngine;
 
-public class Door : MonoBehaviour
+public class Door : MonoBehaviour,IPunObservable
 {
     public bool IsLock;
     public float SpeedOfOpening;
@@ -87,5 +88,23 @@ public class Door : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         IsAbleToOpen = true;
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(IsLock);
+            stream.SendNext(IsAbleToOpen);
+            stream.SendNext(IsRunning);
+            stream.SendNext(Direction);
+        }
+        else
+        {
+            IsLock = (bool)stream.ReceiveNext();
+            IsAbleToOpen = (bool)stream.ReceiveNext();
+            IsRunning = (bool)stream.ReceiveNext();
+            Direction = (Directions)stream.ReceiveNext();
+        }
     }
 }

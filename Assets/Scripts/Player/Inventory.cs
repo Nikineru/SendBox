@@ -27,9 +27,7 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < ItemsCount; i++)
             Items.Add(i, null);
         for (int i = 0; i < ItemsCount; i++)
-        {
             BusyPlaces.Add(-1);
-        }
         Icons = inventory.GetChildrensOfType<SpriteRenderer>();
 
         foreach (var item in Icons)
@@ -64,8 +62,15 @@ public class Inventory : MonoBehaviour
     private void Drop(int index)
     {
         GameObject item = Items[index];
-        item.transform.position = transform.position;
-        item.transform.Translate(-transform.right * item.GetComponent<RectTransform>().rect.width);
+        Vector3 SpawnPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        float xKof = item.GetComponent<RectTransform>().rect.width;
+        float yKof = item.GetComponent<RectTransform>().rect.height;
+
+        float x = Mathf.Clamp(SpawnPos.x, transform.position.x - xKof, transform.position.x + xKof);
+        float y = Mathf.Clamp(SpawnPos.y, transform.position.y - yKof, transform.position.y + yKof);
+
+        item.transform.position = new Vector3(x, y, transform.position.z);  
         item.SetActive(true);
         BusyPlaces[index] = -1;
         IsFull = false;

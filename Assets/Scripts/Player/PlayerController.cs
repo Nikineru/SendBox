@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Photon.Pun;
+using UnityEngine;
 using static Characteristicks;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -15,11 +16,13 @@ public class PlayerController : MonoBehaviour
     private Coroutine StaminaChange;
     //</summary>
     #endregion
+    private PhotonView photonView;
     public float DistanseForDoor = 5;
     [HideInInspector]public Characteristicks playerChara;
     private SpriteRenderer SpriteRender;
     private void Start()
     {
+        photonView = GetComponent<PhotonView>();
         RunSpeed = SpeedOfMove * 1.75f;
         WalkSpeed = SpeedOfMove;
         playerChara = GetComponentInChildren<Characteristicks>();
@@ -67,6 +70,9 @@ public class PlayerController : MonoBehaviour
     #endregion
     private void Update()
     {
+        if (photonView.IsMine == false)
+            return;
+
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         MoveVelocity = moveInput.normalized * SpeedOfMove;
         SpriteRender.flipX = MoveVelocity.x > 0;
@@ -76,6 +82,9 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (photonView.IsMine == false)
+            return;
+
         gameObject.MoveToVector(MoveVelocity,Time.fixedDeltaTime);
         Run();
     }
