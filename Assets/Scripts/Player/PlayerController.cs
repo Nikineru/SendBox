@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
 
                 BeAbleToRun = false;
                 SpeedOfMove = RunSpeed;
-                StaminaChange = StartCoroutine(playerChara.ChangeSmothing(Properties.Stamina,DropValue: 0.2f));
+                StaminaChange = StartCoroutine(playerChara.ChangeSmothing(Properties.Stamina,DropValue: 0.2f,EndValue:0));
         }
         if(Input.GetKey(KeyCode.LeftShift)==false&&BeAbleToRun==false)
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Characteristicks : MonoBehaviour
@@ -8,6 +9,12 @@ public class Characteristicks : MonoBehaviour
     public float Stamina => Features[Properties.Stamina];
     public float Health => Features[Properties.Health];
     public float Hunger => Features[Properties.Hunger];
+    public Dictionary<Properties, string> Icons = new Dictionary<Properties, string>()
+    {
+        {Properties.Stamina,"StaminaCharaBar"},
+        {Properties.Health,"HealthCharaBar"},
+        {Properties.Hunger,"FoodCharaBar"}
+    };
 
     private Dictionary<Properties, float> Features = new Dictionary<Properties, float>()
     {
@@ -31,6 +38,10 @@ public class Characteristicks : MonoBehaviour
         set
         {
             Features[chara] = value;
+
+            ProgressBarScript Bar = GetComponentsInChildren<ProgressBarScript>().FirstOrDefault(i => i.name == Icons[chara]);
+            if (Bar != null)
+                Bar.SetValue(Features[chara]);
         }
     }
     public IEnumerator ChangeSmothing(Properties chara, float DropValue, float EndValue = 0,float WaitTime = 0,Action OnEndAction = null)
@@ -41,7 +52,7 @@ public class Characteristicks : MonoBehaviour
         yield return new WaitForSeconds(WaitTime);
         if (bigger)
         {
-            while (Chara > EndValue)
+            while (this[chara] > EndValue)
             {
                 yield return new WaitForFixedUpdate();
                 this[chara]-= DropValue;
@@ -49,7 +60,7 @@ public class Characteristicks : MonoBehaviour
         }
         else
         {
-            while (Chara < EndValue)
+            while (this[chara] < EndValue)
             {
                 yield return new WaitForFixedUpdate();
                 this[chara] += DropValue;

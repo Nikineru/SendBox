@@ -1,12 +1,12 @@
 ﻿using Photon.Pun;
 using System.Collections;
 using UnityEngine;
-
+[RequireComponent(typeof(AudioSource))]
 public class Door : MonoBehaviour,IPunObservable
 {
     public bool IsLock;
     public float SpeedOfOpening;
-
+    private AudioSource AudioPlayer;
     #region OpenLogick
     private Vector2 EndPoint;
     private Vector2 StartPoint;
@@ -28,12 +28,14 @@ public class Door : MonoBehaviour,IPunObservable
         EndPoint = transform.position;
         EndPoint.y = Height;
         StartPoint = transform.position;
+        AudioPlayer = GetComponentInChildren<AudioSource>();
     }
     public void Open()
     {
         if (IsLock == false && IsRunning==false&&IsAbleToOpen)
         {
-            OpeningCorutin = StartCoroutine(Opening()); 
+            OpeningCorutin = StartCoroutine(Opening());
+            AudioPlayer.Play();
             IsRunning = true;
         }
     }
@@ -51,6 +53,7 @@ public class Door : MonoBehaviour,IPunObservable
                     Direction = Directions.up;
                     IsRunning = false;
                     IsOpened = !IsOpened;
+                    AudioPlayer.Stop();
                 }
             }
             if (IsOpened == false)

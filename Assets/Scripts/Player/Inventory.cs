@@ -28,7 +28,7 @@ public class Inventory : MonoBehaviour
             Items.Add(i, null);
         for (int i = 0; i < ItemsCount; i++)
             BusyPlaces.Add(-1);
-        Icons = inventory.GetChildrensOfType<SpriteRenderer>();
+        Icons = inventory.GetChildrensOfType<SpriteRenderer>().Where(i=>i.name.Contains("Icon")).ToList();
 
         foreach (var item in Icons)
         {
