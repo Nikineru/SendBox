@@ -9,6 +9,15 @@ public class Characteristicks : MonoBehaviour
     public float Stamina => Features[Properties.Stamina];
     public float Health => Features[Properties.Health];
     public float Hunger => Features[Properties.Hunger];
+    public enum Roles 
+    {
+    ClassD,
+    Cleaner,
+    Scientist,
+    Engineer,
+    Manager
+    }
+    public Roles Role;
     public Dictionary<Properties, string> Icons = new Dictionary<Properties, string>()
     {
         {Properties.Stamina,"StaminaCharaBar"},
@@ -39,7 +48,7 @@ public class Characteristicks : MonoBehaviour
         {
             Features[chara] = value;
 
-            ProgressBarScript Bar = GetComponentsInChildren<ProgressBarScript>().FirstOrDefault(i => i.name == Icons[chara]);
+            ProgressBarScript Bar = GameObject.Find(Icons[chara]).GetComponent<ProgressBarScript>();
             if (Bar != null)
                 Bar.SetValue(Features[chara]);
         }

@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
+    public event Action OnEnventoryStarted;
     public Dictionary<int, GameObject> Items = new Dictionary<int, GameObject>();
     public float ItemsCount = 5;
     public bool IsFull;
@@ -34,6 +34,7 @@ public class Inventory : MonoBehaviour
         {
             item.GetComponent<DragObject>().MouseUp += ChangePlaceOfItem;
         }
+        OnEnventoryStarted?.Invoke();
     }
     public void ChangePlaceOfItem(GameObject icon,Vector3 StartPos,bool IsOut)
     {
@@ -78,29 +79,32 @@ public class Inventory : MonoBehaviour
         renderer.color = Color.white;
         renderer.sprite = null;
     }
+    public void AddToInventory(GameObject Item) 
+    {
+        if (Item == null)
+            return;
+        if (BusyPlaces.Contains(-1) == false)
+        {
+            IsFull = true;
+            return;
+        }
+        int Index = BusyPlaces.IndexOf(BusyPlaces.First(i => i == -1));
 
+        Item itemProps = Item.GetComponent<Item>();
+        Items[Index] = Item;
+        BusyPlaces[Index] = Index;
+        Item.SetActive(false);
+        Icons[Index].sprite = itemProps.Icon;
+    }
     public void PickUpItem()
     {
         if (IsFull == false)
         {
             GameObject Item = gameObject.FindNearestObjectOfType<Item>();
-            if (Item == null)
-                return;
             if (gameObject.GetDistanse(Item) < PickUpDistanse)
             {
-                if (BusyPlaces.Contains(-1) == false)
-                {
-                    IsFull = true;
-                    return;
-                }
-                int Index = BusyPlaces.IndexOf(BusyPlaces.First(i => i == -1));
-
-                Item itemProps = Item.GetComponent<Item>();
-                Items[Index] = Item;
-                BusyPlaces[Index] = Index;
-                Item.SetActive(false);
-                Icons[Index].sprite = itemProps.Icon;
-        }
+                AddToInventory(Item);
+            }
         }
     }
     public void ShowInventory()
