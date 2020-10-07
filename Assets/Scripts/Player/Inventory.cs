@@ -6,15 +6,17 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     public event Action OnEnventoryStarted;
-    public Dictionary<int, GameObject> Items = new Dictionary<int, GameObject>();
+    public List<GameObject> Items = new List<GameObject>();
     public float ItemsCount = 5;
     public bool IsFull;
     public float PickUpDistanse;
+    public GameObject CurretPickUpItem;
     private List<int> BusyPlaces = new List<int>();
     private List<SpriteRenderer> Icons = new List<SpriteRenderer>();
 
     #region Show Inventory Logic
     public bool IsOpen;
+    public bool IsLock=false;
     private float StartPoint;
     private GameObject inventory;
     private Camera PlayerCamera;
@@ -25,20 +27,20 @@ public class Inventory : MonoBehaviour
         inventory = transform.Find("Inventory").gameObject;
         StartPoint = inventory.transform.localPosition.y;
         for (int i = 0; i < ItemsCount; i++)
-            Items.Add(i, null);
+            Items.Add(null);
         for (int i = 0; i < ItemsCount; i++)
             BusyPlaces.Add(-1);
         Icons = inventory.GetChildrensOfType<SpriteRenderer>().Where(i=>i.name.Contains("Icon")).ToList();
 
         foreach (var item in Icons)
         {
-            item.GetComponent<DragObject>().MouseUp += ChangePlaceOfItem;
+            item.GetComponent<DragIcon>().MouseUp += ChangePlaceOfItem;
         }
         OnEnventoryStarted?.Invoke();
     }
     public void ChangePlaceOfItem(GameObject icon,Vector3 StartPos,bool IsOut)
     {
-        GameObject NearestIcon = icon.FindNearestObjectOfType<DragObject>();
+        GameObject NearestIcon = icon.FindNearestObjectOfType<DragIcon>();
 
         var NewSpite = NearestIcon.GetComponentInChildren<SpriteRenderer>();
         int NewIndex = Icons.IndexOf(NewSpite);
@@ -62,6 +64,7 @@ public class Inventory : MonoBehaviour
 
     private void Drop(int index)
     {
+        Debug.Log(index);
         GameObject item = Items[index];
         Vector3 SpawnPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -78,6 +81,7 @@ public class Inventory : MonoBehaviour
         SpriteRenderer renderer = Icons[index].GetComponent<SpriteRenderer>();
         renderer.color = Color.white;
         renderer.sprite = null;
+        Items[index] = null;
     }
     public void AddToInventory(GameObject Item) 
     {
@@ -100,16 +104,19 @@ public class Inventory : MonoBehaviour
     {
         if (IsFull == false)
         {
-            GameObject Item = gameObject.FindNearestObjectOfType<Item>();
-            if (gameObject.GetDistanse(Item) < PickUpDistanse)
+            if(CurretPickUpItem==null)
+            CurretPickUpItem = gameObject.FindNearestObjectOfType<Item>();
+
+            if (gameObject.GetDistanse(CurretPickUpItem) < PickUpDistanse)
             {
-                AddToInventory(Item);
+                AddToInventory(CurretPickUpItem);
+                CurretPickUpItem = null;
             }
         }
     }
     public void ShowInventory()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab)&&IsLock==false)
             IsOpen = !IsOpen;
 
         Vector3 pos = inventory.transform.position;

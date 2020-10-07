@@ -1,11 +1,15 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class DragObject : MonoBehaviour
 {
-    public Color OutColor;
-    public event System.Action<GameObject,Vector3,bool> MouseUp;
-    private Vector3 StartPos;
-    private bool IsOut;
+    protected Vector3 StartPos;
+    public event Action MouseUpEvent;
+    public event Action MouseDownEvent;
+    public event Action MouseDragEvent;
+    public bool LockMove = false;
+    public Vector2 MaxPos;
+    public Vector2 MinPos;
     private void Start()
     {
         StartPos = transform.localPosition;
@@ -14,24 +18,31 @@ public class DragObject : MonoBehaviour
     {
         Vector3 mousePoint = Input.mousePosition;
         return Camera.main.ScreenToWorldPoint(mousePoint);
-
-    }
-    private void OnMouseDrag()
-    {
-        var Position = GetMouseAsWorldPoint();
-        transform.position = Position;
-        float y = transform.localPosition.y;
-        float x = transform.localPosition.x;
-        transform.localPosition = new Vector3(x,y,StartPos.z);
-        IsOut = transform.localPosition.x >= 6 || transform.localPosition.x <= -6 || transform.localPosition.y >= 2.6f;
-        SpriteRenderer renderer = GetComponent<SpriteRenderer>();
-        if (IsOut)
-            renderer.color = Color.Lerp(renderer.color,OutColor,Time.deltaTime*2f);
-        else
-            renderer.color = Color.Lerp(renderer.color, Color.white, Time.deltaTime*2f);
     }
     private void OnMouseUp()
     {
-        MouseUp.Invoke(gameObject,StartPos,IsOut);
+        MouseUpEvent?.Invoke();
+    }
+    private void OnMouseDown()
+    {
+        MouseDownEvent?.Invoke();
+    }
+    private void OnMouseDrag()
+    {
+        Move();
+    }
+    public virtual void Move()
+    {
+        var Position = GetMouseAsWorldPoint();;
+
+        transform.position = new Vector3(Position.x,Position.y, transform.position.z);
+
+        if (LockMove)
+        {
+            float x = Mathf.Clamp(transform.localPosition.x, MinPos.x, MaxPos.x);
+            float y = Mathf.Clamp(transform.localPosition.y, MinPos.y, MaxPos.y);
+            transform.localPosition = new Vector3(x, y, transform.localPosition.z);
+        }
+        MouseDragEvent?.Invoke();
     }
 }

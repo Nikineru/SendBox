@@ -1,11 +1,15 @@
 ﻿using Photon.Pun;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
+using static Characteristicks;
+
 [RequireComponent(typeof(AudioSource))]
 public class Door : MonoBehaviour,IPunObservable
 {
     public bool IsLock;
     public float SpeedOfOpening;
+    public Roles AccessibilityLevel;
     private AudioSource AudioPlayer;
     #region OpenLogick
     private Vector2 EndPoint;
@@ -32,7 +36,20 @@ public class Door : MonoBehaviour,IPunObservable
     }
     public void Open()
     {
-        if (IsLock == false && IsRunning==false&&IsAbleToOpen)
+        Inventory inventory = gameObject.FindNearestObjectOfType<Inventory>().GetComponent<Inventory>();
+        KeyCard card = null;
+        bool AcceptAccessibility = false;
+        try
+        {
+            card = inventory.Items.FirstOrDefault(i => i.GetComponent<KeyCard>() != null).GetComponent<KeyCard>();
+            AcceptAccessibility = (int)card.AccessibilityLevel >= (int)AccessibilityLevel;
+        }
+        catch
+        {
+                AcceptAccessibility = AccessibilityLevel == Roles.ClassD;
+        }   
+
+        if (IsLock == false && IsRunning==false&&IsAbleToOpen&&AcceptAccessibility)
         {
             OpeningCorutin = StartCoroutine(Opening());
             AudioPlayer.Play();

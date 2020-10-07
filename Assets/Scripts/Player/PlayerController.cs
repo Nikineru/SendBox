@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer SpriteRender;
     private void Start()
     {
+        GameObject.Find("Player UI").GetComponent<Canvas>().worldCamera = GetComponentInChildren<Camera>();
+
         photonView = GetComponent<PhotonView>();
         RunSpeed = SpeedOfMove * 1.75f;
         WalkSpeed = SpeedOfMove;

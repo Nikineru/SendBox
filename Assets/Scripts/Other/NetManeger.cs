@@ -35,12 +35,14 @@ public class NetManeger : MonoBehaviourPunCallbacks
         SpawnInfo Info = RolesSpawnInfo[Role];
         GameObject Player = PhotonNetwork.Instantiate(PlayerPrefab.name, Info.SpawnPosition, Quaternion.identity);
         Player.GetComponent<Characteristicks>().Role = Role;
+        if (Role == Roles.ClassD)
+            return;
+
         Inventory inventory = Player.GetComponent<Inventory>();
         inventory.OnEnventoryStarted += () =>
         {
             GameObject Card = PhotonNetwork.Instantiate(Cards[(int)Role].name, Info.SpawnPosition, Quaternion.identity);
-            if (Card != null)
-                inventory.AddToInventory(Card);
+            inventory.AddToInventory(Card);
         };
     }
     public void Leave()

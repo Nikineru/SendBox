@@ -48,6 +48,28 @@ public static class Helper
             return null;
         }
     }
+    public static GameObject FindNearestObjectOfTag(this GameObject Object,string Tag)
+    {
+        List<GameObject> Objects = GameObject.FindGameObjectsWithTag(Tag).ToList();
+        if (Objects.Contains(Object))
+            Objects.Remove(Object);
+        try
+        {
+            float result = Object.GetDistanse(Objects[0]);
+            for (int i = 1; i < Objects.Count; i++)
+            {
+                float distanse = Object.GetDistanse(Objects[i]);
+                if (distanse < result)
+                    result = distanse;
+            }
+            return Objects.FirstOrDefault(i => i.GetDistanse(Object) == result);
+        }
+        catch
+        {
+            Debug.Log("Нет таких обьеков :<");
+            return null;
+        }
+    }
     public static GameObject FindNearestInArray(this GameObject Object, List<GameObject> Objects)
     {
         float NearestDis = 0;

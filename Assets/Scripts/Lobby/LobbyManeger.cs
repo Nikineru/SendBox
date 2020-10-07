@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class LobbyManeger : MonoBehaviourPunCallbacks
 {
     public Text Log;
+    private bool Joined = false;
     private void Start()
     {
         PhotonNetwork.NickName = "Player" + Random.Range(0, 100);
@@ -16,11 +17,17 @@ public class LobbyManeger : MonoBehaviourPunCallbacks
     }
     public void CreateRoom()
     {
-        PhotonNetwork.CreateRoom(null,new Photon.Realtime.RoomOptions { MaxPlayers=2});
+        if (Joined)
+            PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions { MaxPlayers = 2 });
+        else
+            Write("You aren`t ready now");
     }
     public void JoinRandomRoom()
     {
+        if(Joined)
         PhotonNetwork.JoinRandomRoom();
+        else
+            Write("You aren`t ready now");
     }
     public override void OnJoinedRoom()
     {
@@ -30,6 +37,7 @@ public class LobbyManeger : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         Write("Connected to Master");
+        Joined = true;
     }
     public void Write(string message)
     {
