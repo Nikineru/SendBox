@@ -35,6 +35,7 @@ public class MiniGamesStation : MonoBehaviour
         Game.SetActive(true);
         Inventory.IsOpen = false;
         Inventory.IsLock = true;
+        Game.GetComponent<MiniGame>().ResetGame();
     }
     public void StopWork()
     {

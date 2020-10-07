@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class MiniGame : MonoBehaviour
 {
-    public int WinScore;
     public int MaxWinScore;
     public int CurretScore;
+    public MiniGamesStation Station;
     public enum Quality
     {
         bad,
@@ -14,4 +14,8 @@ public class MiniGame : MonoBehaviour
         good
     }
     public Quality QualityMark;
+    public virtual void ResetGame() 
+    {
+        CurretScore = 0;
+    }
 }

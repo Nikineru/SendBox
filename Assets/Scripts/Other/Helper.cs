@@ -72,7 +72,7 @@ public static class Helper
     }
     public static GameObject FindNearestInArray(this GameObject Object, List<GameObject> Objects)
     {
-        float NearestDis = 0;
+        float NearestDis = Objects[0].GetDistanse(Object);
         if (Objects.Contains(Object))
             Objects.Remove(Object);
         foreach (var item in Objects)
