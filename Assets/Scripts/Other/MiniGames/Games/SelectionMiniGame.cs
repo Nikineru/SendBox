@@ -12,28 +12,14 @@ public class SelectionMiniGame : MiniGame
     private List<Vector3> ObjectsPos = new List<Vector3>();
     private void Start()
     {
-        for (int o = 0; o < DragObjects.Count; o++)
+        ResetColors();
+        foreach(var Object in DragObjects)
         {
-            int index = Random.Range(0, Colors.Count);
-            if (UseColors.Contains(Colors[index]) == false)
-                UseColors.Add(Colors[index]);
-            else
-                o--;
-        }
-        for(int j = 0;j<DragObjects.Count;j++)
-        {
-            GameObject Object = DragObjects[j];
-            SpriteRenderer renderer = Object.GetComponent<SpriteRenderer>();
-
-            renderer.color = UseColors[j];
-            List<SpriteRenderer> HolesRenderes = Holes.Select(i => i.GetComponent<SpriteRenderer>()).Where(i => i.color == Color.white).ToList();
-            HolesRenderes[Random.Range(0, HolesRenderes.Count)].color = UseColors[j];
-
             ObjectsPos.Add(Object.transform.localPosition);
             Object.GetComponent<DragObject>().MouseUpEvent += () =>
             {
                 GameObject Target = Object.FindNearestInArray(Holes);
-                int ObjectColorIndex = Colors.IndexOf(renderer.color);
+                int ObjectColorIndex = Colors.IndexOf(Object.GetComponentInChildren<SpriteRenderer>().color);
                 int HoleColorIdex = Colors.IndexOf(Target.GetComponent<SpriteRenderer>().color);
                 if (ObjectColorIndex == HoleColorIdex)
                 {
@@ -43,6 +29,29 @@ public class SelectionMiniGame : MiniGame
                         Station.StopWork();
                 }
             };
+        }
+    }
+    public void ResetColors()
+    {
+        UseColors = new List<Color>(3);
+        foreach()
+        for (int j = 0; j < DragObjects.Count; j++)
+        {
+            int index = Random.Range(0, Colors.Count);
+            if (UseColors.Contains(Colors[index]) == false)
+                UseColors.Add(Colors[index]);
+            else
+            {
+                j--;
+                continue;
+            }
+            Debug.Log(j);
+            GameObject Object = DragObjects[j];
+            SpriteRenderer renderer = Object.GetComponent<SpriteRenderer>();
+
+            renderer.color = UseColors[j];
+            List<SpriteRenderer> HolesRenderes = Holes.Select(i => i.GetComponent<SpriteRenderer>()).Where(i => i.color == Color.white).ToList();
+            HolesRenderes[Random.Range(0, HolesRenderes.Count)].color = UseColors[j];
         }
     }
     public override void ResetGame() 
@@ -55,5 +64,6 @@ public class SelectionMiniGame : MiniGame
             item.SetActive(true);
             item.transform.localPosition = ObjectsPos[i];
         }
+        ResetColors();
     }
 }
