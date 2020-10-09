@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
 
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         MoveVelocity = moveInput.normalized * SpeedOfMove;
-        SpriteRender.flipX = MoveVelocity.x > 0;
+        SpriteRender.flipX = MoveVelocity.x < 0;
             
         if (Input.GetKeyDown(KeyCode.E))
             OpenTheDoor();

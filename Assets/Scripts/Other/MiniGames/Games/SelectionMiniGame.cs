@@ -26,7 +26,9 @@ public class SelectionMiniGame : MiniGame
                     CurretScore++;
                     Object.SetActive(false);
                     if (CurretScore >= MaxWinScore)
+                    {
                         Station.StopWork();
+                    }
                 }
             };
         }
@@ -34,7 +36,8 @@ public class SelectionMiniGame : MiniGame
     public void ResetColors()
     {
         UseColors = new List<Color>(3);
-        foreach()
+        foreach (var hole in Holes)
+            hole.GetComponentInChildren<SpriteRenderer>().color = Color.white;
         for (int j = 0; j < DragObjects.Count; j++)
         {
             int index = Random.Range(0, Colors.Count);

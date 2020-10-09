@@ -21,15 +21,18 @@ public class Item : MonoBehaviour
     private void OnMouseEnter()
     {
         IsHover = true;
+        if(Inventory!=null)
         Inventory.CurretPickUpItem = gameObject;
     }
     private void OnMouseExit()
     {
         IsHover = false;
+        if(Inventory!=null)
         Inventory.CurretPickUpItem = null;
     }
     private void Update()
     {
+        Inventory = Inventory ?? FindObjectOfType<Inventory>();
         if (IsHover)
             Renderer.color = Color.Lerp(Renderer.color, HoverColor, Time.deltaTime * 4);
         else
