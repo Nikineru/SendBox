@@ -23,6 +23,7 @@ public class MiniGamesStation : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(collision.GetComponentInChildren<PlayerController>()!=null)
         StartWork();
     }
     public void StartWork()

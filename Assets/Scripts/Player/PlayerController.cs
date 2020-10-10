@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     #endregion
     private PhotonView photonView;
     public float DistanseForDoor = 5;
+    public bool Flip;
     [HideInInspector]public Characteristicks playerChara;
     private SpriteRenderer SpriteRender;
     private void Start()
