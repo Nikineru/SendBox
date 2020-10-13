@@ -41,7 +41,7 @@ public class Door : MonoBehaviour,IPunObservable
         bool AcceptAccessibility = false;
         try
         {
-            card = inventory.Items.FirstOrDefault(i => i.GetComponent<KeyCard>() != null).GetComponent<KeyCard>();
+            card = inventory.CurretItem.GetComponent<KeyCard>();
             AcceptAccessibility = (int)card.AccessibilityLevel >= (int)AccessibilityLevel;
         }
         catch

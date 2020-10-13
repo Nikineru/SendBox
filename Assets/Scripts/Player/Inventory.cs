@@ -6,11 +6,13 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     public event Action OnEnventoryStarted;
-    public List<GameObject> Items = new List<GameObject>();
-    public float ItemsCount = 5;
+    public int ItemsCount = 5;
     public bool IsFull;
     public float PickUpDistanse;
-    public GameObject CurretPickUpItem;
+    public GameObject CurretItem;
+    [HideInInspector] public GameObject CurretPickUpItem;
+    private int IndexOfCurretItem = 0;
+    private List<GameObject> Items = new List<GameObject>();
     private List<int> BusyPlaces = new List<int>();
     private List<SpriteRenderer> Icons = new List<SpriteRenderer>();
 
@@ -111,6 +113,7 @@ public class Inventory : MonoBehaviour
             {
                 AddToInventory(CurretPickUpItem);
                 CurretPickUpItem = null;
+                CurretItem = CurretPickUpItem;
             }
         }
     }
@@ -136,5 +139,27 @@ public class Inventory : MonoBehaviour
         ShowInventory();
         if (Input.GetKeyDown(KeyCode.F))
             PickUpItem();
+            
+        float MouseWeel = Input.GetAxis("Mouse ScrollWheel");
+        DragIcon IconProps = Icons[IndexOfCurretItem].GetComponent<DragIcon>();
+        if (MouseWeel > 0.1)
+        {
+            IconProps.IsCurret = false;
+            if (IndexOfCurretItem < (ItemsCount-1))
+                IndexOfCurretItem++;
+            else
+                IndexOfCurretItem = 0;
+        }
+        if (MouseWeel < -0.1)
+        {
+            IconProps.IsCurret = false;
+            if (IndexOfCurretItem > 0)
+                IndexOfCurretItem--;
+            else
+                IndexOfCurretItem = (ItemsCount-1);
+        }
+        CurretItem = Items[IndexOfCurretItem];
+        IconProps.IsCurret = true;
+        Debug.Log(IconProps.IsCurret);
     }
 }
