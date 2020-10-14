@@ -739,6 +739,16 @@ PrefabInstance:
       propertyPath: Station
       value: 
       objectReference: {fileID: 995840191}
+    - target: {fileID: 5482833294342089865, guid: fd481658d2c85d9469f6b9e39a680433,
+        type: 3}
+      propertyPath: Colors.Array.data[0].r
+      value: 0.47450984
+      objectReference: {fileID: 0}
+    - target: {fileID: 5482833294342089865, guid: fd481658d2c85d9469f6b9e39a680433,
+        type: 3}
+      propertyPath: Colors.Array.data[0].g
+      value: 0.79696304
+      objectReference: {fileID: 0}
     - target: {fileID: 6396861360297766462, guid: fd481658d2c85d9469f6b9e39a680433,
         type: 3}
       propertyPath: m_Name

@@ -109,10 +109,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f70efbac7f0707b4c9655ea3fbc0a5f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartLocalPos: {x: 0, y: 0, z: 0}
+  StartPos: {x: 0, y: 0, z: 0}
   LockMove: 0
   MaxPos: {x: 0, y: 0}
   MinPos: {x: 0, y: 0}
   OutColor: {r: 0.32156864, g: 0.63529414, b: 0.7647059, a: 1}
+  IsCurretColor: {r: 0.99607843, g: 1, b: 0.627451, a: 1}
   IsCurret: 0
 --- !u!1 &1565542410222420910
 GameObject:
@@ -223,10 +226,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f70efbac7f0707b4c9655ea3fbc0a5f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartLocalPos: {x: 0, y: 0, z: 0}
+  StartPos: {x: 0, y: 0, z: 0}
   LockMove: 0
   MaxPos: {x: 0, y: 0}
   MinPos: {x: 0, y: 0}
   OutColor: {r: 0.32156864, g: 0.63529414, b: 0.7647059, a: 1}
+  IsCurretColor: {r: 0.99607843, g: 1, b: 0.627451, a: 1}
   IsCurret: 0
 --- !u!1 &1565542410374830285
 GameObject:
@@ -337,10 +343,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f70efbac7f0707b4c9655ea3fbc0a5f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartLocalPos: {x: 0, y: 0, z: 0}
+  StartPos: {x: 0, y: 0, z: 0}
   LockMove: 0
   MaxPos: {x: 0, y: 0}
   MinPos: {x: 0, y: 0}
   OutColor: {r: 0.32156864, g: 0.63529414, b: 0.7647059, a: 1}
+  IsCurretColor: {r: 0.99607843, g: 1, b: 0.627451, a: 1}
   IsCurret: 0
 --- !u!1 &1565542410493715757
 GameObject:
@@ -551,10 +560,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f70efbac7f0707b4c9655ea3fbc0a5f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartLocalPos: {x: 0, y: 0, z: 0}
+  StartPos: {x: 0, y: 0, z: 0}
   LockMove: 0
   MaxPos: {x: 0, y: 0}
   MinPos: {x: 0, y: 0}
   OutColor: {r: 0.32156864, g: 0.63529414, b: 0.7647059, a: 1}
+  IsCurretColor: {r: 0.99607843, g: 1, b: 0.627451, a: 1}
   IsCurret: 0
 --- !u!1 &1565542410767881151
 GameObject:
@@ -665,10 +677,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f70efbac7f0707b4c9655ea3fbc0a5f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartLocalPos: {x: 0, y: 0, z: 0}
+  StartPos: {x: 0, y: 0, z: 0}
   LockMove: 0
   MaxPos: {x: 0, y: 0}
   MinPos: {x: 0, y: 0}
   OutColor: {r: 0.32156864, g: 0.63529414, b: 0.7647059, a: 1}
+  IsCurretColor: {r: 0.99607843, g: 1, b: 0.627451, a: 1}
   IsCurret: 0
 --- !u!1 &1565542411106402665
 GameObject:
@@ -867,10 +882,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f70efbac7f0707b4c9655ea3fbc0a5f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartLocalPos: {x: 0, y: 0, z: 0}
+  StartPos: {x: 0, y: 0, z: 0}
   LockMove: 0
   MaxPos: {x: 0, y: 0}
   MinPos: {x: 0, y: 0}
   OutColor: {r: 0.32156864, g: 0.63529414, b: 0.7647059, a: 1}
+  IsCurretColor: {r: 0.99607843, g: 1, b: 0.627451, a: 1}
   IsCurret: 0
 --- !u!1 &1565542411510069917
 GameObject:
@@ -997,9 +1015,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e203adb81d0c51041a1bbb957bc44fbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Flip: 0
   SpeedOfMove: 8
   DistanseForDoor: 6
-  Flip: 0
   playerChara: {fileID: 0}
 --- !u!114 &1565542411510069891
 MonoBehaviour:

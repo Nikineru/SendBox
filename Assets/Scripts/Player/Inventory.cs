@@ -12,8 +12,10 @@ public class Inventory : MonoBehaviour
     public GameObject CurretItem;
     [HideInInspector] public GameObject CurretPickUpItem;
     private int IndexOfCurretItem = 0;
+    private int RealIndexOfCurretItem => IndexesOfItems[IndexOfCurretItem];
     private List<GameObject> Items = new List<GameObject>();
     private List<int> BusyPlaces = new List<int>();
+    private List<int> IndexesOfItems = new List<int>();
     private List<SpriteRenderer> Icons = new List<SpriteRenderer>();
 
     #region Show Inventory Logic
@@ -60,6 +62,9 @@ public class Inventory : MonoBehaviour
             BusyPlaces[NewIndex] = NewIndex;
             Items[NewIndex] = Items[OldIndex];
             Items[OldIndex] = null;
+            IndexesOfItems[OldIndex] = NewIndex;
+            IndexesOfItems.Sort();
+            IndexOfCurretItem = IndexesOfItems.IndexOf(NewIndex);
         }
         icon.transform.localPosition = StartPos;
     }
@@ -84,6 +89,9 @@ public class Inventory : MonoBehaviour
         renderer.color = Color.white;
         renderer.sprite = null;
         Items[index] = null;
+        IndexesOfItems.Remove(index);
+        IndexesOfItems.Sort();
+        IndexOfCurretItem = 0;
     }
     public void AddToInventory(GameObject Item) 
     {
@@ -101,6 +109,8 @@ public class Inventory : MonoBehaviour
         BusyPlaces[Index] = Index;
         Item.SetActive(false);
         Icons[Index].sprite = itemProps.Icon;
+        IndexesOfItems.Add(Items.IndexOf(Item));
+        IndexesOfItems.Sort();
     }
     public void PickUpItem()
     {
@@ -141,11 +151,11 @@ public class Inventory : MonoBehaviour
             PickUpItem();
             
         float MouseWeel = Input.GetAxis("Mouse ScrollWheel");
-        DragIcon IconProps = Icons[IndexOfCurretItem].GetComponent<DragIcon>();
+        DragIcon IconProps = Icons[RealIndexOfCurretItem].GetComponent<DragIcon>();
         if (MouseWeel > 0.1)
         {
             IconProps.IsCurret = false;
-            if (IndexOfCurretItem < (ItemsCount-1))
+            if (IndexOfCurretItem < (IndexesOfItems.Count-1))
                 IndexOfCurretItem++;
             else
                 IndexOfCurretItem = 0;
@@ -156,10 +166,10 @@ public class Inventory : MonoBehaviour
             if (IndexOfCurretItem > 0)
                 IndexOfCurretItem--;
             else
-                IndexOfCurretItem = (ItemsCount-1);
+                IndexOfCurretItem = (IndexesOfItems.Count-1);
         }
-        CurretItem = Items[IndexOfCurretItem];
+        IconProps = Icons[RealIndexOfCurretItem].GetComponent<DragIcon>();
         IconProps.IsCurret = true;
-        Debug.Log(IconProps.IsCurret);
+        CurretItem = Items[RealIndexOfCurretItem];
     }
 }

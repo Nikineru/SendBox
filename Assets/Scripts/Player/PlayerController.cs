@@ -6,11 +6,12 @@ using static Characteristicks;
 public class PlayerController : MonoBehaviour
 {
     #region Move of player
+    public bool Flip;
     public float SpeedOfMove;
     private float RunSpeed;
     private float WalkSpeed;
     private Vector2 MoveVelocity;
-
+    private bool Rotation;
     //<summary> Run Logick
     private bool BeAbleToRun = true;
     private Coroutine StaminaChange;
@@ -18,7 +19,6 @@ public class PlayerController : MonoBehaviour
     #endregion
     private PhotonView photonView;
     public float DistanseForDoor = 5;
-    public bool Flip;
     [HideInInspector]public Characteristicks playerChara;
     private SpriteRenderer SpriteRender;
     private void Start()
@@ -78,8 +78,15 @@ public class PlayerController : MonoBehaviour
 
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         MoveVelocity = moveInput.normalized * SpeedOfMove;
-        SpriteRender.flipX = MoveVelocity.x < 0;
-            
+        MoveVelocity = Flip ? new Vector2(-MoveVelocity.x, -MoveVelocity.y) : MoveVelocity;
+
+        if (MoveVelocity.x < 0)
+            Rotation = Flip ? false : true;
+        if (MoveVelocity.x > 0)
+            Rotation = Flip?true:false;
+
+        SpriteRender.flipX = Rotation;
+
         if (Input.GetKeyDown(KeyCode.E))
             OpenTheDoor();
     }

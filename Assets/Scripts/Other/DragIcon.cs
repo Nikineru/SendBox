@@ -5,16 +5,18 @@ using UnityEngine;
 public class DragIcon : DragObject
 {
     public Color OutColor;
+    public Color IsCurretColor;
     public event System.Action<GameObject, Vector3, bool> MouseUp;
     public bool IsCurret;
     private bool IsOut;
     private Inventory inventory;
-    private SpriteRenderer renderer;
+    private SpriteRenderer IconRenderer;
 
     private void Start()
     {
         inventory = FindObjectOfType<Inventory>();
-        renderer = GetComponent<SpriteRenderer>();
+        IconRenderer = GetComponent<SpriteRenderer>();
+        StartLocalPos = transform.localPosition;
     }
     public override void Move()
     {
@@ -22,9 +24,13 @@ public class DragIcon : DragObject
 
         IsOut = transform.localPosition.x >= 6 || transform.localPosition.x <= -6 || transform.localPosition.y >= 2.6f;
         if (IsOut)
-            renderer.color = Color.Lerp(renderer.color, OutColor, Time.deltaTime * 4f);
+            ChangeColor(OutColor, 4f);
         else
-            renderer.color = Color.Lerp(renderer.color, Color.white, Time.deltaTime * 4f);
+            ChangeColor(Color.white, 4f);
+    }
+    public void ChangeColor(Color NewColor,float Speed)
+    {
+        IconRenderer.color = Color.Lerp(IconRenderer.color, NewColor, Time.deltaTime * 4f);
     }
     private void OnMouseDrag()
     {
@@ -32,13 +38,13 @@ public class DragIcon : DragObject
     }
     private void OnMouseUp()
     {
-        MouseUp.Invoke(gameObject, StartPos, IsOut);
+        MouseUp.Invoke(gameObject, StartLocalPos, IsOut);
     }
     private void Update()
     {
-        if(IsCurret)
-            renderer.color = Color.Lerp(renderer.color, Color.yellow, Time.deltaTime * 4f);
+        if (IsCurret)
+            ChangeColor(IsCurretColor, 4f);
         else
-            renderer.color = Color.Lerp(renderer.color, Color.white, Time.deltaTime * 4f);
+            ChangeColor(Color.white, 4f);
     }
 }

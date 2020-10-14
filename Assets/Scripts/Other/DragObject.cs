@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class DragObject : MonoBehaviour
 {
-    protected Vector3 StartPos;
+    public Vector3 StartLocalPos;
+    public Vector3 StartPos;
     public event Action MouseUpEvent;
     public event Action MouseDownEvent;
     public event Action MouseDragEvent;
@@ -12,7 +13,8 @@ public class DragObject : MonoBehaviour
     public Vector2 MinPos;
     private void Start()
     {
-        StartPos = transform.localPosition;
+        StartLocalPos = transform.localPosition;
+        StartPos = transform.position;
     }
     private Vector3 GetMouseAsWorldPoint()
     {
@@ -26,6 +28,7 @@ public class DragObject : MonoBehaviour
     private void OnMouseDown()
     {
         MouseDownEvent?.Invoke();
+        StartPos = transform.position;
     }
     private void OnMouseDrag()
     {
