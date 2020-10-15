@@ -7,7 +7,8 @@ public class Inventory : MonoBehaviour
 {
     public event Action OnEnventoryStarted;
     public int ItemsCount = 5;
-    public bool IsFull;
+    public bool IsFull=>IndexesOfItems.Count>=ItemsCount;
+    public bool IsEmpty=>Items[0]==null;
     public float PickUpDistanse;
     public GameObject CurretItem;
     [HideInInspector] public GameObject CurretPickUpItem;
@@ -84,7 +85,6 @@ public class Inventory : MonoBehaviour
         item.transform.position = new Vector3(x, y, transform.position.z);  
         item.SetActive(true);
         BusyPlaces[index] = -1;
-        IsFull = false;
         SpriteRenderer renderer = Icons[index].GetComponent<SpriteRenderer>();
         renderer.color = Color.white;
         renderer.sprite = null;
@@ -92,16 +92,15 @@ public class Inventory : MonoBehaviour
         IndexesOfItems.Remove(index);
         IndexesOfItems.Sort();
         IndexOfCurretItem = 0;
+        Icons[index].GetComponent<DragIcon>().IsCurret = false;
     }
     public void AddToInventory(GameObject Item) 
     {
         if (Item == null)
             return;
         if (BusyPlaces.Contains(-1) == false)
-        {
-            IsFull = true;
             return;
-        }
+
         int Index = BusyPlaces.IndexOf(BusyPlaces.First(i => i == -1));
 
         Item itemProps = Item.GetComponent<Item>();
@@ -118,7 +117,8 @@ public class Inventory : MonoBehaviour
         {
             if(CurretPickUpItem==null)
             CurretPickUpItem = gameObject.FindNearestObjectOfType<Item>();
-
+            if (CurretPickUpItem == null)
+                return;
             if (gameObject.GetDistanse(CurretPickUpItem) < PickUpDistanse)
             {
                 AddToInventory(CurretPickUpItem);
@@ -149,7 +149,9 @@ public class Inventory : MonoBehaviour
         ShowInventory();
         if (Input.GetKeyDown(KeyCode.F))
             PickUpItem();
-            
+
+        if (IsEmpty)
+            return;
         float MouseWeel = Input.GetAxis("Mouse ScrollWheel");
         DragIcon IconProps = Icons[RealIndexOfCurretItem].GetComponent<DragIcon>();
         if (MouseWeel > 0.1)

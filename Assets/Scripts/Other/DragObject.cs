@@ -9,6 +9,7 @@ public class DragObject : MonoBehaviour
     public event Action MouseDownEvent;
     public event Action MouseDragEvent;
     public bool LockMove = false;
+    public bool IsAbleToMove = true;
     public Vector2 MaxPos;
     public Vector2 MinPos;
     private void Start()
@@ -23,15 +24,21 @@ public class DragObject : MonoBehaviour
     }
     private void OnMouseUp()
     {
+        if (IsAbleToMove == false)
+            return;
         MouseUpEvent?.Invoke();
     }
     private void OnMouseDown()
     {
+        if (IsAbleToMove == false)
+            return;
         MouseDownEvent?.Invoke();
         StartPos = transform.position;
     }
     private void OnMouseDrag()
     {
+        if (IsAbleToMove == false)
+            return;
         Move();
     }
     public virtual void Move()

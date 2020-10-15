@@ -49,7 +49,7 @@ public class MiniGamesStation : MonoBehaviour
     {
         if (IsWorking)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E)||Input.GetKeyDown(KeyCode.Escape))
                 StopWork();
 
             BlackScreen.color = Color.Lerp(BlackScreen.color, WorkColor, Time.deltaTime * 4f);

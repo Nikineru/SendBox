@@ -33,7 +33,7 @@ public class Item : MonoBehaviour
     private void Update()
     {
         Inventory = Inventory ?? FindObjectOfType<Inventory>();
-        if (IsHover)
+        if (IsHover&&gameObject.GetDistanse(Inventory.gameObject)<Inventory.PickUpDistanse)
             Renderer.color = Color.Lerp(Renderer.color, HoverColor, Time.deltaTime * 4);
         else
             Renderer.color = Color.Lerp(Renderer.color, SimpleColor, Time.deltaTime * 4);

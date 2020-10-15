@@ -31,7 +31,9 @@ public class PlayerController : MonoBehaviour
         playerChara = GetComponentInChildren<Characteristicks>();
         SpriteRender = GetComponentInChildren<SpriteRenderer>();
 
-        StartCoroutine(playerChara.ChangeSmothing(Properties.Hunger,DropValue: 0.05f));
+        StartCoroutine(playerChara.ChangeSmothing(Properties.Hunger,DropValue: 0.03f));
+        StartCoroutine(playerChara.ChangeSmothing(Properties.Thirst, DropValue: 0.04f));
+        StartCoroutine(playerChara.ChangeSmothing(Properties.Mind, DropValue: 0.01f));
     }
     public void OpenTheDoor()
     {

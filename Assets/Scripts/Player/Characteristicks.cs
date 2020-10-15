@@ -9,6 +9,8 @@ public class Characteristicks : MonoBehaviour
     public float Stamina => Features[Properties.Stamina];
     public float Health => Features[Properties.Health];
     public float Hunger => Features[Properties.Hunger];
+    public float Thirst => Features[Properties.Thirst];
+    public float Mind => Features[Properties.Mind];
     public enum Roles 
     {
     ClassD,
@@ -22,21 +24,27 @@ public class Characteristicks : MonoBehaviour
     {
         {Properties.Stamina,"StaminaCharaBar"},
         {Properties.Health,"HealthCharaBar"},
-        {Properties.Hunger,"FoodCharaBar"}
+        {Properties.Hunger,"FoodCharaBar"},
+        {Properties.Thirst,"ThirstCharaBar"},
+        {Properties.Mind,"MindCharaBar"}
     };
 
     private Dictionary<Properties, float> Features = new Dictionary<Properties, float>()
     {
         {Properties.Stamina,100},
         {Properties.Health,100},
-        {Properties.Hunger,100}
+        {Properties.Hunger,100},
+        {Properties.Thirst,100},
+        {Properties.Mind,100}
     };
 
     public enum Properties
     {
         Stamina,
         Health,
-        Hunger
+        Hunger,
+        Thirst,
+        Mind
     }
     public float this[Properties chara]
     {

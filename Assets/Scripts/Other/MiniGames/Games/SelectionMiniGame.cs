@@ -29,7 +29,7 @@ public class SelectionMiniGame : MiniGame
                 if (ObjectColorIndex == HoleColorIdex&&Object.GetDistanse(Target)<2)
                 {
                     CurretScore++;
-                    Object.SetActive(false);
+                    Object.GetComponent<DragObject>().IsAbleToMove = false;
                     if (CurretScore >= MaxWinScore)
                     {
                         Station.StopWork();
@@ -86,7 +86,7 @@ public class SelectionMiniGame : MiniGame
             GameObject item = DragObjects[i];
             Lines[i].SetPosition(0, new Vector2(0,0));
             Lines[i].SetPosition(1, new Vector2(0,0));
-            item.SetActive(true);
+            item.GetComponent<DragObject>().IsAbleToMove = true;
             item.transform.localPosition = item.GetComponent<DragObject>().StartLocalPos;
         }      
         ResetColors();

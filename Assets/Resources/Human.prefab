@@ -112,6 +112,7 @@ MonoBehaviour:
   StartLocalPos: {x: 0, y: 0, z: 0}
   StartPos: {x: 0, y: 0, z: 0}
   LockMove: 0
+  IsAbleToMove: 1
   MaxPos: {x: 0, y: 0}
   MinPos: {x: 0, y: 0}
   OutColor: {r: 0.32156864, g: 0.63529414, b: 0.7647059, a: 1}
@@ -229,6 +230,7 @@ MonoBehaviour:
   StartLocalPos: {x: 0, y: 0, z: 0}
   StartPos: {x: 0, y: 0, z: 0}
   LockMove: 0
+  IsAbleToMove: 1
   MaxPos: {x: 0, y: 0}
   MinPos: {x: 0, y: 0}
   OutColor: {r: 0.32156864, g: 0.63529414, b: 0.7647059, a: 1}
@@ -346,6 +348,7 @@ MonoBehaviour:
   StartLocalPos: {x: 0, y: 0, z: 0}
   StartPos: {x: 0, y: 0, z: 0}
   LockMove: 0
+  IsAbleToMove: 1
   MaxPos: {x: 0, y: 0}
   MinPos: {x: 0, y: 0}
   OutColor: {r: 0.32156864, g: 0.63529414, b: 0.7647059, a: 1}
@@ -563,6 +566,7 @@ MonoBehaviour:
   StartLocalPos: {x: 0, y: 0, z: 0}
   StartPos: {x: 0, y: 0, z: 0}
   LockMove: 0
+  IsAbleToMove: 1
   MaxPos: {x: 0, y: 0}
   MinPos: {x: 0, y: 0}
   OutColor: {r: 0.32156864, g: 0.63529414, b: 0.7647059, a: 1}
@@ -680,6 +684,7 @@ MonoBehaviour:
   StartLocalPos: {x: 0, y: 0, z: 0}
   StartPos: {x: 0, y: 0, z: 0}
   LockMove: 0
+  IsAbleToMove: 1
   MaxPos: {x: 0, y: 0}
   MinPos: {x: 0, y: 0}
   OutColor: {r: 0.32156864, g: 0.63529414, b: 0.7647059, a: 1}
@@ -885,6 +890,7 @@ MonoBehaviour:
   StartLocalPos: {x: 0, y: 0, z: 0}
   StartPos: {x: 0, y: 0, z: 0}
   LockMove: 0
+  IsAbleToMove: 1
   MaxPos: {x: 0, y: 0}
   MinPos: {x: 0, y: 0}
   OutColor: {r: 0.32156864, g: 0.63529414, b: 0.7647059, a: 1}
@@ -1045,7 +1051,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemsCount: 6
-  IsFull: 0
   PickUpDistanse: 5
   CurretItem: {fileID: 0}
   CurretPickUpItem: {fileID: 0}
